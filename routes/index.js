@@ -41,4 +41,19 @@ router.post('/autores/inclui', function(req, res) {
   res.json(autores) 
 });
 
+router.put('/autores/altera/:id', function(req, res) {
+  let id = req.params.id;
+  let nome = req.body.nome;
+
+  autores[id] = nome;
+  res.json(autores);
+});
+
+router.delete('/autores/exclui/:id', function(req, res) {
+  let id = req.params.id;
+
+  autores.splice(id, 1);
+  res.json(autores);
+});
+
 module.exports = router;
