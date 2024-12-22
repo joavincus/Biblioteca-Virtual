@@ -1,4 +1,5 @@
 var express = require('express');
+let db = require('../utils/db');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -54,6 +55,15 @@ router.delete('/autores/exclui/:id', function(req, res) {
 
   autores.splice(id, 1);
   res.json(autores);
+});
+
+router.get('/autores/listar', function(req, res) {
+  db.query('SELECT * FROM TbAutor', [], function(erro, listagem){
+    if (erro){
+      res.send(erro);
+    }
+    res.send(listagem);
+  });
 });
 
 module.exports = router;
