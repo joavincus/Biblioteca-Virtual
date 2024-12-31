@@ -1,8 +1,7 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+:root {
+    --neon-gradient: linear-gradient(45deg, #9b4dca, #00d8ff);
 }
 
-a {
-  color: #00B7FF;
+body{
+    padding: 50px; 
 }

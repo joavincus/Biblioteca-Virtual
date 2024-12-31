@@ -71,4 +71,8 @@ router.get('/autores/listar', function(req, res) {
   });
 });
 
+router.get('/autores/add', function(req, res) {
+    res.render('autores-add');
+  }); 
+
 module.exports = router;
