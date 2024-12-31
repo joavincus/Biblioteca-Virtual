@@ -58,11 +58,16 @@ router.delete('/autores/exclui/:id', function(req, res) {
 });
 
 router.get('/autores/listar', function(req, res) {
-  db.query('SELECT * FROM TbAutor', [], function(erro, listagem){
+  let cmd = ' SELECT IdAutor, NoAutor, NoNacionalidade';
+      cmd += ' FROM TbAutor AS a INNER JOIN TbNacionalidade AS n';
+      cmd += ' ON a.IdNacionalidade = n.IdNacionalidade';
+      cmd += ' ORDER BY NoAutor';
+
+  db.query(cmd, [], function(erro, listagem){
     if (erro){
       res.send(erro);
     }
-    res.send(listagem);
+    res.render('autores-lista', {resultado: listagem});
   });
 });
 

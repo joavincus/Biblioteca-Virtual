@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Listagem de Autores</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Listagem de Autores</h1>
+    <p><% for (item of resultado) {%>
+          <%= item.IdAutor%> | <%= item.NoAutor%> | <%= item.NoNacionalidade%> <br> 
+      <%}%>
+    </p>
+  </body>
+</html>
