@@ -9,31 +9,54 @@ router.get('/listar', function(req, res) {
       cmd += ' ORDER BY NoNacionalidade';
 
   db.query(cmd, [], function(erro, listagem){
-    if (erro){router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Cafeteria' });
-});
+    if (erro){
       res.send(erro);
     }
     res.render('autores-lista', {resultado: listagem});
   });
 });
 
+// router.post('/add', function(req, res) {
+//   let nome = req.body.nome;
+//   let nacionalidade = req.body.nacionalidade;
+//   let cmd = ' INSERT INTO TbAutor (NoAutor, IdNacionalidade) VALUES (?, ?);';
+//   db.query(cmd, [nome, nacionalidade], function(erro, listagem){
+//     if (erro){router.get('/', function(req, res, next) {
+//   res.render('index', { title: 'Cafeteria' });
+// });
+//       res.send(erro);
+//     }
+//     res.redirect('/autores/listar');
+//   });
+// });
+
 router.post('/add', function(req, res) {
-  let nome = req.body.nome;
-  let nacionalidade = req.body.nacionalidade;
-  let cmd = ' INSERT INTO TbAutor (NoAutor, IdNacionalidade) VALUES (?, ?);';
+  let nome = req.body.nome
+  let nacionalidade = req.body.nacionalidade
+  let cmd = ' INSERT INTO TbAutor (NoAutor, IdNacionalidade) VALUES (?,?);';
   db.query(cmd, [nome, nacionalidade], function(erro, listagem){
-    if (erro){router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Cafeteria' });
-});
+    if (erro){
       res.send(erro);
     }
     res.redirect('/autores/listar');
   });
 });
 
+
 router.get('/add', function(req, res) {
-    res.render('autores-add');
+    res.render('autores-add', {resultado: {}});
   }); 
+
+  router.get('/edit/:id', function(req, res) {
+    let id = req.params.id;
+
+    let cmd = ' SELECT IdAutor, NoAutor, IdNacionalidade FROM TbAutor WHERE IdAutor = ?;';
+    db.query(cmd, [id], function(erro, listagem){
+      if (erro){
+        res.send(erro);
+      }
+      res.render('autores-add', {resultado: listagem[0]});
+    });
+  });
 
 module.exports = router;
