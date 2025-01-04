@@ -16,20 +16,6 @@ router.get('/listar', function(req, res) {
   });
 });
 
-// router.post('/add', function(req, res) {
-//   let nome = req.body.nome;
-//   let nacionalidade = req.body.nacionalidade;
-//   let cmd = ' INSERT INTO TbAutor (NoAutor, IdNacionalidade) VALUES (?, ?);';
-//   db.query(cmd, [nome, nacionalidade], function(erro, listagem){
-//     if (erro){router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Cafeteria' });
-// });
-//       res.send(erro);
-//     }
-//     res.redirect('/autores/listar');
-//   });
-// });
-
 router.post('/add', function(req, res) {
   let nome = req.body.nome
   let nacionalidade = req.body.nacionalidade
@@ -56,6 +42,19 @@ router.get('/add', function(req, res) {
         res.send(erro);
       }
       res.render('autores-add', {resultado: listagem[0]});
+    });
+  });
+
+  router.put('/edit/:id', function(req, res) {
+    let id = req.params.id;
+    let nome = req.body.nome
+    let nacionalidade = req.body.nacionalidade
+    let cmd = ' UPDATE TbAutor SET NoAutor = ?, IdNacionalidade = ? WHERE IdAutor = ?;';
+    db.query(cmd, [nome, nacionalidade, id], function(erro, listagem){
+      if (erro){
+        res.send(erro);
+      }
+      res.redirect(303, '/autores/listar');
     });
   });
 
