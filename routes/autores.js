@@ -58,4 +58,17 @@ router.get('/add', function(req, res) {
     });
   });
 
+
+  router.delete('/delete/:id', function(req, res) {
+    let id = req.params.id;
+
+    let cmd = ' DELETE FROM TbAutor WHERE IdAutor = ?;';
+    db.query(cmd, [id], function(erro, listagem){
+      if (erro){
+        res.send(erro);
+      }
+      res.redirect(303, '/autores/listar');
+    });
+  });
+
 module.exports = router;
